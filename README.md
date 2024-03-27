@@ -1,6 +1,6 @@
 # Senior Frontend Developer Test
 
-Congrats on making it this far into the application process! 
+Congrats on making it this far into the application process!
 
 # Preparation
 
@@ -50,6 +50,12 @@ You should code out the following features:
    d. Encapsulate logical page components into Vue components for easy re-use
    e. Supply controls to the user to sort Newest to Oldest or Oldest to Newest
    f. Ensure the sort order works with a query string variable of your choice to enabling sharing of the page with the sort order in tact
+   g. Keep performance in mind
+   Make sure to display optimized images
+   Paginate according to your desired strategy
+   Provide a sort order control
+   Store the sort order in the URL
+   Make it look good 💪
 2. A dedicated page for each blog post displaying it's content, image, tile, and author
    a. Make sure you address SEO
    b. Once again, consider performance
