@@ -21,7 +21,7 @@ async function setupDb() {
 </script>
 <template>
   <div class="h-screen flex justify-center items-center">
-    <div class="flex flex-col gap-8 max-w-[700px]" v-if="!setup">
+    <div v-if="!setup" class="flex flex-col gap-8 max-w-[700px]">
       <h1 class="text-4xl font-bold">👋 Welcome to the Test!</h1>
       <div>
         <p class="mb-2">
