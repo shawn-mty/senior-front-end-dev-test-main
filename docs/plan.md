@@ -1,4 +1,4 @@
-1. Get eslint rolling, download vue use for infinite scroll, add playwright for testing
+1. Get eslint rolling, download vue use for infinite scroll, add playwright and testing library for testing
 2. Scaffold out the test cases
 3. Implement showing posts of the blog
 4. Make sure infinite scroll is working
