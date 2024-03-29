@@ -20,13 +20,13 @@ export default defineEventHandler(async (event): Promise<PostWithUser> => {
         .optional()
         .default(
           ["image", "title", "publishedAt", "content", "excerpt", "id"].join(
-            ","
-          )
+            ",",
+          ),
         ),
       order: z
         .union([z.literal("newestFirst"), z.literal("oldestFirst")])
         .optional(),
-    })
+    }),
   );
 
   const select = postSelectQueryHelper(payload);
@@ -41,7 +41,7 @@ export default defineEventHandler(async (event): Promise<PostWithUser> => {
       .orderBy(
         payload.order === "newestFirst"
           ? asc(tables.posts.publishedAt)
-          : desc(tables.posts.publishedAt)
+          : desc(tables.posts.publishedAt),
       );
 
     if (payload.include === "user") {

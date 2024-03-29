@@ -15,8 +15,8 @@
   "dependencies": {
     "@nuxt/image": "^1.4.0",
     "@nuxtjs/tailwindcss": "^6.11.4",
-    "@vueuse/core": "^10.9.0",
-    "@vueuse/nuxt": "^10.9.0",
+    "@vueuse/core": "^10.2.0",
+    "@vueuse/nuxt": "^10.2.0",
     "drizzle-orm": "^0.29.5",
     "nanoid": "^5.0.6",
     "nuxt": "^3.10.3",

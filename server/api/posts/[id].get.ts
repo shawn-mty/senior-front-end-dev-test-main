@@ -13,10 +13,10 @@ export default defineEventHandler(async (event): Promise<PostWithUser> => {
         .optional()
         .default(
           ["image", "title", "publishedAt", "content", "excerpt", "id"].join(
-            ","
-          )
+            ",",
+          ),
         ),
-    })
+    }),
   );
 
   const select = postSelectQueryHelper(payload);
