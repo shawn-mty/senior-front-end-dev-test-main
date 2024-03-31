@@ -5,7 +5,9 @@ const isLoading = ref(false);
 const posts = ref<PostWithUser[]>([]);
 const page = ref(0);
 const perPage = 10;
-const newestFirst = ref(true);
+const isNewestFirst = ref(true);
+const route = useRoute();
+const router = useRouter();
 
 const fetchPosts = async () => {
   if (isLoading.value) return;
@@ -18,7 +20,7 @@ const fetchPosts = async () => {
       limit: 10,
       offset: page.value * 10,
       include: "user",
-      order: newestFirst.value ? "oldestFirst" : "newestFirst",
+      order: isNewestFirst.value ? "oldestFirst" : "newestFirst",
     },
     params: { page: page.value, perPage },
   });
@@ -28,8 +30,27 @@ const fetchPosts = async () => {
   isLoading.value = false;
 };
 
+const toggleSortOrder = () => {
+  posts.value = [];
+  page.value = 0;
+  fetchPosts();
+
+  updateSortOrderUrl();
+};
+
+const updateSortOrderUrl = () => {
+  router.push({
+    path: router.currentRoute.value.path,
+    query: {
+      ...route.query,
+      order: isNewestFirst.value ? "newestFirst" : "oldestFirst",
+    },
+  });
+};
+
 onMounted(async () => {
   await fetchPosts();
+  updateSortOrderUrl();
 });
 
 useInfiniteScroll(
@@ -39,12 +60,6 @@ useInfiniteScroll(
   },
   { distance: 10 },
 );
-
-const toggleSortOrder = () => {
-  posts.value = [];
-  page.value = 0;
-  fetchPosts();
-};
 </script>
 
 <template>
@@ -57,7 +72,7 @@ const toggleSortOrder = () => {
       <label class="mr-2" for="sort-order">
         <input
           id="sort-order"
-          v-model="newestFirst"
+          v-model="isNewestFirst"
           type="checkbox"
           @change="toggleSortOrder"
         />
