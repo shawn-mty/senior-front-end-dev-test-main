@@ -1,6 +1,6 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig, devices } from "@playwright/test";
-import type { ConfigOptions } from "@nuxt/test-utils/dist/playwright";
+import type { ConfigOptions } from "@nuxt/test-utils/playwright";
 
 const devicesToTest = ["Desktop Chrome"] satisfies Array<
   string | (typeof devices)[string]
@@ -8,7 +8,7 @@ const devicesToTest = ["Desktop Chrome"] satisfies Array<
 
 /* See https://playwright.dev/docs/test-configuration.*/
 export default defineConfig<ConfigOptions>({
-  testDir: "./tests",
+  testDir: "./tests/e2e",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
