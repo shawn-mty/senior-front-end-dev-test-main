@@ -11,15 +11,15 @@ defineProps({
 </script>
 
 <template>
-  <div class="bg-white rounded-lg shadow-md overflow-hidden p-4">
+  <article class="bg-white rounded-lg shadow-md overflow-hidden p-4">
     <div class="flex justify-between">
       <span class="text-gray-500 text-xs mb-4 text-end pl-2">
         <Icon name="majesticons:article-line" data-testid="article-img" />
         Article
       </span>
-      <span class="text-gray-500 text-sm mb-4 text-end">
+      <time class="text-gray-500 text-sm mb-4 text-end">
         {{ post.publishedAt ? formatTimeAgo(new Date(post.publishedAt)) : "" }}
-      </span>
+      </time>
     </div>
     <NuxtImg
       class="bg-gray-100 rounded-sm"
@@ -31,9 +31,12 @@ defineProps({
       loading="lazy"
     />
     <div class="p-6">
-      <h2 class="text-2xl font-bold mb-2">{{ post.title }}</h2>
-      <p class="text-gray-700 mb-4">{{ post.excerpt }}</p>
-      <div class="flex items-center">
+      <section>
+        <h2 class="text-2xl font-bold mb-2">{{ post.title }}</h2>
+        <p class="text-gray-700 mb-4">{{ post.excerpt }}</p>
+      </section>
+
+      <footer class="flex items-center">
         <NuxtImg
           format="webp"
           width="40"
@@ -48,7 +51,7 @@ defineProps({
             {{ post.user.firstName }} {{ post.user.lastName }}
           </p>
         </div>
-      </div>
+      </footer>
     </div>
-  </div>
+  </article>
 </template>

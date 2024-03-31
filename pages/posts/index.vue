@@ -54,8 +54,9 @@ const toggleSortOrder = () => {
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam, quae.
     </p>
     <div class="flex items-center justify-end mb-4">
-      <label class="mr-2">
+      <label class="mr-2" for="sort-order">
         <input
+          id="sort-order"
           v-model="newestFirst"
           type="checkbox"
           @change="toggleSortOrder"
