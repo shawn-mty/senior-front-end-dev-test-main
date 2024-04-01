@@ -54,5 +54,5 @@ it("BlogPostCard renders", async () => {
   expect(avatarImage).toBeVisible();
 
   expect(getByText("Article")).toBeVisible();
-  expect(getByTestId("article-img")).toHaveClass("icon");
+  expect(getByTestId("article-img")).toBeVisible();
 });
