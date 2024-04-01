@@ -1,6 +1,8 @@
 <template>
   <div class="container mx-auto px-4 py-10">
-    <article v-if="post.id" class="max-w-3xl mx-auto">
+    <div v-if="isLoading" class="my-10"><LoadingSpinner /></div>
+
+    <article v-else class="max-w-3xl mx-auto">
       <header class="mb-6">
         <div class="flex items-center">
           <NuxtImg
@@ -36,8 +38,6 @@
 
       <div class="prose max-w-none" v-html="post.content"></div>
     </article>
-
-    <div v-else class="text-center">Loading...</div>
   </div>
 </template>
 
@@ -47,17 +47,20 @@ import { formatDate } from "@vueuse/core";
 
 const route = useRoute();
 
-const { data: post } = await useFetch(`/api/posts/${route.params.slug}`, {
-  key: route.params.slug,
-  query: { include: "user" },
-});
+const { data: post, pending: isLoading } = await useFetch(
+  `/api/posts/${route.params.slug}`,
+  {
+    key: route.params.slug,
+    query: { include: "user" },
+  },
+);
 
 const formatPublishedDate = (date) => formatDate(new Date(date), "MMM D, YYYY");
 
 const title = computed(() => post.value?.title);
 const description = computed(() => post.value?.excerpt);
 const image = computed(() => post.value?.image);
-const url = computed(() => `http://localhost:3000/posts/${post.value?.id}`);
+const url = computed(() => `http://ourblog.com/posts/${post.value?.id}`); // Should have real domain defined by a var from dotenv
 const author = computed(
   () => `${post.value?.user.firstName} ${post.value?.user.lastName}`,
 );
@@ -73,7 +76,7 @@ useSeoMeta({
   ogImage: image,
   ogUrl: url,
   ogType: "article",
-  ogSiteName: "Our blog",
+  ogSiteName: "Our Blog",
   twitterCard: "summary_large_image",
   twitterTitle: title,
   twitterDescription: description,

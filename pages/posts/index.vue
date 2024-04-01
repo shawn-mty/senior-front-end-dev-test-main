@@ -19,6 +19,34 @@ useInfiniteScroll(
   { distance: 10 },
 );
 
+const title = "Our Blog";
+const description =
+  "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam, quae.";
+const url = "https://ourblog.com/posts"; // Should have real domain defined by a var from dotenv
+
+useSeoMeta({
+  title,
+  description,
+  ogTitle: title,
+  ogDescription: description,
+  ogUrl: url,
+  ogType: "website",
+  ogSiteName: "Our Blog",
+  twitterCard: "summary_large_image",
+  twitterTitle: title,
+  twitterDescription: description,
+});
+
+useHead({
+  link: [
+    {
+      hid: "canonical",
+      rel: "canonical",
+      href: url,
+    },
+  ],
+});
+
 const fetchPosts = async ({ isInitialLoad = false, isRetry = false } = {}) => {
   if (isRetry) error.value = null;
   if (isLoading.value || error.value) return;
@@ -92,7 +120,7 @@ await fetchPosts({ isInitialLoad: true });
   <div class="my-5 mx-auto px-4 max-w-6xl">
     <h1 class="text-3xl font-bold text-center mb-4 mt-5">Our Blog</h1>
     <p class="text-gray-500 mb-4 text-center mb-6">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam, quae.
+      {{ description }}
     </p>
     <div class="flex items-center justify-end mb-4">
       <label v-if="!isLoading" class="mr-2" for="sort-order">
@@ -117,12 +145,8 @@ await fetchPosts({ isInitialLoad: true });
     <div class="grid grid-cols-1 md:grid-cols-2 gap-9">
       <BlogPostCard v-for="post in posts" :key="post.id" :post="post" />
     </div>
-    <div v-if="isLoading" class="text-center my-8">
-      <div class="flex justify-center items-center">
-        <div
-          class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2"
-        />
-      </div>
+    <div v-if="isLoading" class="my-8">
+      <LoadingSpinner />
     </div>
   </div>
 </template>
