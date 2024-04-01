@@ -26,8 +26,8 @@ defineProps({
       format="webp"
       :src="post.image"
       :alt="`${post.title} image`"
-      width="840"
-      height="480"
+      width="672"
+      height="384"
       loading="lazy"
     />
     <div class="p-6">

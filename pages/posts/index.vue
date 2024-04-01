@@ -31,6 +31,7 @@ const fetchPosts = async ({ isInitialLoad = false, isRetry = false } = {}) => {
       limit: perPage,
       offset: page.value * perPage,
       include: "user",
+      select: "id,title,excerpt,publishedAt,image",
       order: isNewestFirst.value ? "oldestFirst" : "newestFirst",
     },
     params: { page: page.value, perPage },
@@ -88,7 +89,7 @@ updateSortOrderUrl();
 await fetchPosts({ isInitialLoad: true });
 </script>
 <template>
-  <div class="my-5 mx-auto px-4" style="max-width: 1200px">
+  <div class="my-5 mx-auto px-4 max-w-6xl">
     <h1 class="text-3xl font-bold text-center mb-4 mt-5">Our Blog</h1>
     <p class="text-gray-500 mb-4 text-center mb-6">
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam, quae.
@@ -113,7 +114,7 @@ await fetchPosts({ isInitialLoad: true });
         Retry
       </button>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-9">
       <BlogPostCard v-for="post in posts" :key="post.id" :post="post" />
     </div>
     <div v-if="isLoading" class="text-center my-8">
