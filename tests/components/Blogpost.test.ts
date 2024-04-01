@@ -25,8 +25,11 @@ const dummyPost: Required<Post> & { user: Required<User> } = {
   },
 };
 
+// TODO use fakerjs
+
 const encodeQuestionMark = (str: string) => str.replace(/\?/g, "%3F");
 
+// TODO contains
 const userFullName = dummyPost.user.firstName + " " + dummyPost.user.lastName;
 
 test("BlogPost renders", async () => {
@@ -41,7 +44,10 @@ test("BlogPost renders", async () => {
   expect(getByText("5 days ago")).toBeVisible();
   expect(getByText(dummyPost.excerpt)).toBeVisible();
 
+  // TODO includes dummyPost.title
   const blogImage = getByAltText(dummyPost.title + " image");
+
+  // TODO includes dummyPost.image
   expect(blogImage).toHaveAttribute(
     "src",
     "/_ipx/f_webp&s_840x480/" + dummyPost.image,
@@ -55,6 +61,4 @@ test("BlogPost renders", async () => {
 
   expect(getByText("Article")).toBeVisible();
   expect(getByTestId("article-img")).toHaveClass("icon");
-
-  screen.debug();
 });

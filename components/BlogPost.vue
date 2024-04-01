@@ -17,8 +17,8 @@ defineProps({
         <Icon name="majesticons:article-line" data-testid="article-img" />
         Article
       </span>
-      <time class="text-gray-500 text-sm mb-4 text-end">
-        {{ post.publishedAt ? formatTimeAgo(new Date(post.publishedAt)) : "" }}
+      <time v-if="post.publishedAt" class="text-gray-500 text-sm mb-4 text-end">
+        {{ formatTimeAgo(new Date(post.publishedAt)) }}
       </time>
     </div>
     <NuxtImg
