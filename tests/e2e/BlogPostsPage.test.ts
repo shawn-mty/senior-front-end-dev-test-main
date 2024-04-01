@@ -1,10 +1,10 @@
 import { expect, test } from "@nuxt/test-utils/playwright";
 
 /**
- * A note about the tests, these won't work when DB is generated again
+ * A note about the e2e tests, these won't work when DB is generated again
  * because it is setup by fakerJS (random vals). If I had more time I would have
  * seeded the DB with the same data every time for the test env. I added a picture
- * to docs/image showing that the tests were passing.
+ * to docs/images showing that the tests were passing.
  */
 
 test.describe("Blog posts page", () => {
