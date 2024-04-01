@@ -36,21 +36,27 @@ defineProps({
         <p class="text-gray-700 mb-4">{{ post.excerpt }}</p>
       </section>
 
-      <footer class="flex items-center">
-        <NuxtImg
-          format="webp"
-          width="40"
-          height="40"
-          :src="post.user.avatar"
-          :alt="`${post.user.firstName} ${post.user.lastName}'s avatar image`"
-          class="w-10 h-10 rounded-full mr-4"
-          loading="lazy"
-        />
-        <div>
-          <p class="text-gray-900 font-semibold leading-none">
+      <footer class="flex justify-between items-center">
+        <div class="flex items-center">
+          <NuxtImg
+            format="webp"
+            width="40"
+            height="40"
+            :src="post.user.avatar"
+            :alt="`${post.user.firstName} ${post.user.lastName}'s avatar image`"
+            class="w-10 h-10 rounded-full mr-4"
+            loading="lazy"
+          />
+          <address class="text-gray-900 font-semibold leading-none">
             {{ post.user.firstName }} {{ post.user.lastName }}
-          </p>
+          </address>
         </div>
+        <NuxtLink
+          :to="`/posts/${post.id}`"
+          class="font-semibold hover:font-bold ml-2 flex items-center"
+        >
+          Read more <Icon name="heroicons-outline:arrow-right" />
+        </NuxtLink>
       </footer>
     </div>
   </article>

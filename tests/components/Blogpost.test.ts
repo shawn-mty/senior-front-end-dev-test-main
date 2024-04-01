@@ -1,4 +1,4 @@
-import BlogPost from "../components/BlogPost.vue";
+import BlogPostCard from "../components/BlogPostCard.vue";
 import { screen } from "@testing-library/vue";
 import { renderSuspended } from "@nuxt/test-utils/runtime";
 import "@testing-library/jest-dom";
@@ -32,8 +32,8 @@ const encodeQuestionMark = (str: string) => str.replace(/\?/g, "%3F");
 // TODO contains
 const userFullName = dummyPost.user.firstName + " " + dummyPost.user.lastName;
 
-test("BlogPost renders", async () => {
-  renderSuspended(BlogPost, {
+test("BlogPostCard renders", async () => {
+  renderSuspended(BlogPostCard, {
     props: {
       post: dummyPost,
     },

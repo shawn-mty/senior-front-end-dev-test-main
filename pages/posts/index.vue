@@ -114,7 +114,7 @@ await fetchPosts({ isInitialLoad: true });
       </button>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <BlogPost v-for="post in posts" :key="post.id" :post="post" />
+      <BlogPostCard v-for="post in posts" :key="post.id" :post="post" />
     </div>
     <div v-if="isLoading" class="text-center my-8">
       <div class="flex justify-center items-center">
