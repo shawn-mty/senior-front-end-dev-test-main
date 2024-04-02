@@ -77,7 +77,7 @@ test.describe("Blog posts page", () => {
     ).toBeVisible();
   });
 
-  test("scrolling with newestFirst sort loads correct articles", async ({
+  test("infinite scrolling with newestFirst sort loads correct articles", async ({
     page,
   }) => {
     await page.goto("/posts");
@@ -95,6 +95,30 @@ test.describe("Blog posts page", () => {
     await expect(heading).toBeVisible();
     await expect(
       page.getByRole("heading", { name: "My Blog Post #617" }),
+    ).toBeVisible();
+
+    const articleHeadings = page.getByRole("article").getByRole("heading");
+    await expect(await articleHeadings.count()).toBe(20);
+  });
+
+  test("infinite scrolling with oldestFirst sort loads correct articles", async ({
+    page,
+  }) => {
+    await page.goto("/posts?order=oldestFirst");
+    await expect(
+      page.getByRole("heading", { name: "My Blog Post #893" }),
+    ).toBeVisible();
+
+    const pageHeight = await page.evaluate("document.body.scrollHeight");
+    await page.mouse.wheel(0, pageHeight as number);
+
+    await page.mouse.wheel(0, 200);
+
+    const heading = page.getByRole("heading", { name: "My Blog Post #405" });
+    await heading.waitFor();
+    await expect(heading).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "My Blog Post #538" }),
     ).toBeVisible();
 
     const articleHeadings = page.getByRole("article").getByRole("heading");

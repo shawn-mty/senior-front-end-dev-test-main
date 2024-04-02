@@ -2,7 +2,7 @@
   <div class="container mx-auto px-4 py-10">
     <div v-if="isLoading" class="my-10"><LoadingSpinner /></div>
 
-    <BlogPost v-else :post="post" />
+    <BlogPost v-else-if="!error" :post="post" />
   </div>
 </template>
 
@@ -10,14 +10,20 @@
 import { computed } from "vue";
 
 const route = useRoute();
+const router = useRouter();
 
-const { data: post, pending: isLoading } = await useFetch(
-  `/api/posts/${route.params.slug}`,
-  {
-    key: route.params.slug,
-    query: { include: "user" },
-  },
-);
+const {
+  data: post,
+  pending: isLoading,
+  error,
+} = await useFetch(`/api/posts/${route.params.slug}`, {
+  key: route.params.slug,
+  query: { include: "user" },
+});
+
+if (error.value) {
+  router.push("/posts/404");
+}
 
 const title = computed(() => post.value?.title);
 const description = computed(() => post.value?.excerpt);
@@ -26,9 +32,10 @@ const url = computed(() => `http://ourblog.com/posts/${post.value?.id}`); // Sho
 const author = computed(
   () => `${post.value?.user.firstName} ${post.value?.user.lastName}`,
 );
-const publishedTime = computed(() =>
-  new Date(post.value?.publishedAt).toISOString(),
-);
+const publishedTime = computed(() => {
+  if (!post.value) return;
+  return new Date(post.value?.publishedAt).toISOString();
+});
 
 useSeoMeta({
   title,
