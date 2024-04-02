@@ -28,7 +28,7 @@ if (error.value) {
 const title = computed(() => post.value?.title);
 const description = computed(() => post.value?.excerpt);
 const image = computed(() => post.value?.image);
-const url = computed(() => `http://ourblog.com/posts/${post.value?.id}`); // Should have real domain defined by a var from dotenv
+const url = computed(() => `http://ourblog.com/posts/${post.value?.id}`);
 const author = computed(
   () => `${post.value?.user.firstName} ${post.value?.user.lastName}`,
 );
@@ -60,6 +60,28 @@ useHead({
       hid: "canonical",
       rel: "canonical",
       href: url,
+    },
+  ],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: title,
+        description: description,
+        datePublished: publishedTime,
+        author: {
+          "@type": "Person",
+          name: author,
+        },
+        image: image,
+        url: url,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": url,
+        },
+      }),
     },
   ],
 });

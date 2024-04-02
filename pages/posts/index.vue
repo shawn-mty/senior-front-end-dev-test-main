@@ -45,6 +45,29 @@ useHead({
       href: url,
     },
   ],
+  script: [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        name: title,
+        description: description,
+        url: url,
+        blogPosts: posts.value.map((post) => ({
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: new Date(post.publishedAt as number).toISOString(),
+          author: {
+            "@type": "Person",
+            name: `${post.user.firstName} ${post.user.lastName}`,
+          },
+          image: post.image,
+        })),
+      }),
+    },
+  ],
 });
 
 const fetchPosts = async ({ isInitialLoad = false, isRetry = false } = {}) => {
